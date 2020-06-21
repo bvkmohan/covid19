@@ -13,6 +13,11 @@ Requirements:
 How to run:
 ----------
 
+Once the requirements in B are fullfiled, run below.
+
+1. git clone ""
+2. cd covid19
+3. python run.py
 
 Errors:
 ------
