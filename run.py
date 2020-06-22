@@ -1,5 +1,43 @@
 import yaml
 import requests
+import re
+
+
+def mon_num(value):
+    if value == "Jan":
+        return "01"
+    if value == "Feb":
+        return "02"
+    if value == "Mar":
+        return "03"
+    if value == "Apr":
+        return "04"
+    if value == "May":
+        return "05"
+    if value == "Jun":
+        return "06"
+    if value == "Jul":
+        return "07"
+    if value == "Aug":
+        return "08"
+    if value == "Sep":
+        return "09"
+    if value == "Oct":
+        return "10"
+    if value == "Nov":
+        return "11"
+    if value == "Dec":
+        return "12"
+
+
+def flat_date(value):
+    value = value.split()[0]
+    if re.match(r"^\d{1,2}\/\d{1,2}\/\d{4}$", value):
+        return value
+    else:
+        value = value.split("-")
+        return value[0] + "/" + mon_num(value[1]) + "/20" + value[2]
+
 
 with open("config.yaml", "r") as config_yaml:
     try:
@@ -19,11 +57,11 @@ else:
 
 for ele in data_2["states_daily"]:
     if ele["status"] == "Confirmed":
-        print(ele["date"] + " -> " + ele["tt"])
+        print(flat_date(ele["date"]) + " -> " + ele["tt"])
 
 for ele in data_1["tested"]:
     print(
-        ele["updatetimestamp"]
+        flat_date(ele["updatetimestamp"])
         + " -> "
         + ele["samplereportedtoday"]
         + " -> "
